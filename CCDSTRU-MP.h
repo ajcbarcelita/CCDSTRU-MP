@@ -2,6 +2,12 @@
 
 typedef char String[7];
 
+void printBoard(int Board[][6])
+{
+    int 
+}
+
+
 int
 Cardinality(int Board[][6], int * next) //count the cardinality of the power set of F1 or F2 intersected with set S
 {
