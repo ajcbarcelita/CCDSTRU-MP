@@ -2,9 +2,28 @@
 
 typedef char String[7];
 
-void printBoard(int Board[][6])
+void printBoard(int Board[][6], int Areas[][2])
 {
-    int 
+    int i, j;
+
+    for (i = 0; i < 6; i++) {
+        printf("==============================\n");
+        for (j = 0; j < 6; j++) {
+            printf("| %d ", Board[i][j]);
+        }
+        printf("|\n");
+    }
+    printf("==============================\n\n");
+    
+    for (i = 0; i < 2; i++) {
+        printf("==============\n");
+        for (j = 0; j < 2; j++) {
+            printf("| %d ", Areas[i][j]);
+        }
+        printf("|\n");
+    }
+    printf("==============\n");
+    
 }
 
 
