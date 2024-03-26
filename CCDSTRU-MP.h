@@ -48,11 +48,15 @@ Cardinality(int Board[][6], int * next) //count the cardinality of the power set
         return cardinality2;
 }
 
-void
-NextPlayerMove( int PosR, int PosC, int * over, int * next, int * good, 
-                int Board[][6])
+int
+CardinalityC(int Board[][6], int * next)
 {
-    int i, j, k;
+    
+
+void
+NextPlayerMove( int PosR, int PosC, int * over, int * next, int Board[][6])
+{
+    int good = 0;
 
     int c = ((PosR-1)/3) + 1;
     int d = ((PosC-1)/3) + 1;
@@ -60,20 +64,24 @@ NextPlayerMove( int PosR, int PosC, int * over, int * next, int * good,
 
     if (!*over && *next && Board[PosR-1][PosC-1] == 0 )
     {
-        *good = !*good;
+        good = !good;
         Board[PosR-1][PosC-1] = 1;
     }
 
+    //insert over function
+    
     if (!*over && !*next && Board[PosR-1][PosC-1] == 0 )
     {
-        *good = !*good;
+        good = !good;
         Board[PosR-1][PosC-1] = 2;
     }
 
-    if (!*over && *good && *next && )
+    //insert over function
 
-    if (!*over && *good == 1) 
+    if (!*over && !good && *next && (Cardinality(Board, *next) > ))
+
+    if (!*over && !good) 
     {
-        *good = !*good; 
+        good = !good; 
     }
 }
