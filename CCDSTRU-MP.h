@@ -67,10 +67,34 @@ CardinalityC(int Areas[][2], int * next)
     else
         return cardinality2;
 }
-    
 
 void
-NextPlayerMove( int PosR, int PosC, int * over, int * next, int Board[][6])
+OverCheck( int * over, int Areas[][2], int Board[][6]) //checks if the game is over
+{
+    int i, j, ctr = 0;
+
+    for(i = 0; i < 6; i++){
+        for(j = 0; j < 6; j++){
+            if(Board[i][j] == 0)
+                ctr++
+        }
+    }
+
+    if(ctr == 0)
+        *over = 1;
+
+    if(Areas[0][0] == Areas[1][1] && Areas[1][1] == 1)
+        *over = 1;
+    if(Areas[0][0] == Areas[1][1] && Areas[1][1] == 2)
+        *over = 2;
+    if(Areas[0][1] == Areas[1][0] && Areas[1][0] == 1)
+        *over = 1;
+    if(Areas[0][1] == Areas[1][0] && Areas[1][0] == 2)
+        *over = 1;
+}
+
+void
+NextPlayerMove( int PosR, int PosC, int * over, int * next, int Board[][6], int Areas[][2])
 {
     int good = 0;
 
@@ -84,7 +108,7 @@ NextPlayerMove( int PosR, int PosC, int * over, int * next, int Board[][6])
         Board[PosR - 1][PosC - 1] = 1;
     }
 
-    //insert over function
+    OverCheck( *over, Areas, Board);
     
     if (!*over && !*next && Board[PosR-1][PosC-1] == 0 )
     {
@@ -92,19 +116,19 @@ NextPlayerMove( int PosR, int PosC, int * over, int * next, int Board[][6])
         Board[PosR - 1][PosC - 1] = 2;
     }
 
-    //insert over function
+    OverCheck( *over, Areas, Board);
 
     if (!*over && !good && *next && (Cardinality(Board, *next) > CardinalityC(Areas, *next))){
         Areas[c - 1][d - 1] = 1;
     }
 
-    //insert over function
+    OverCheck( *over, Areas, Board);
     
     if (!*over && !good && !*next && (Cardinality(Board, *next) > CardinalityC(Areas, *next))){
         Areas[c - 1][d - 1] = 2;
     }
 
-    //insert over function
+    OverCheck( *over, Areas, Board);
     
     if (!*over && !good) 
     {
