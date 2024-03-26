@@ -15,12 +15,38 @@ Cardinality(int Board[][6], int * next) //count the cardinality of the power set
         cardinality2++;
     }
 
+    if(Board[3][3] == Board[3][5] && Board[3][5] == Board[4][4] && Board[4][4] == Board[5][3] && Board[5][3] == Board[5][5] && Board[5][5] == 1) 
+    {
+        cardinality1++; 
+    }
+    if(Board[3][3] == Board[3][5] && Board[3][5] == Board[4][4] && Board[4][4] == Board[5][3] && Board[5][3] == Board[5][5] && Board[5][5] == 2) 
+    {
+        cardinality2++;
+    }
+
+    if(Board[0][4] == Board[1][3] && Board[1][3] == Board[1][4] && Board[1][4] == Board[1][5] && Board[1][5] == Board[2][4] && Board[2][4] == 1) 
+    {
+        cardinality1++; 
+    }
+    if(Board[0][4] == Board[1][3] && Board[1][3] == Board[1][4] && Board[1][4] == Board[1][5] && Board[1][5] == Board[2][4] && Board[2][4] == 2) 
+    {
+        cardinality2++; 
+    }
+
+    if(Board[3][0] == Board[3][2] && Board[3][2] == Board[4][0] && Board[4][0] == Board[4][2] && Board[4][2] == Board[5][0] && Board[5][0] == Board[5][2] && Board[5][2] == 1)     
+    {
+        cardinality1++; 
+    }
+    if(Board[3][0] == Board[3][2] && Board[3][2] == Board[4][0] && Board[4][0] == Board[4][2] && Board[4][2] == Board[5][0] && Board[5][0] == Board[5][2] && Board[5][2] == 2)     
+    {
+        cardinality2++; 
+    }
+
     if(*next)
         return cardinality1;
     else
         return cardinality2;
 }
-
 
 void
 NextPlayerMove( int PosR, int PosC, int * over, int * next, int * good, 
