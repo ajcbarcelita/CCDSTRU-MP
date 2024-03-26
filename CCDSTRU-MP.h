@@ -86,7 +86,7 @@ Cardinality(int Board[][6], int * next) //count the cardinality of the power set
         cardinality2++; 
     }
 
-    if(*next)
+    if(!*next)
         return cardinality1;
     else
         return cardinality2;
@@ -113,7 +113,7 @@ CardinalityC(int Areas[][2], int * next)
 }
 
 void
-OverCheck( int * over, int Areas[][2], int Board[][6]) //checks if the game is over
+OverCheck(int * over, int Areas[][2], int Board[][6]) //checks if the game is over
 {
     int i, j, ctr = 0;
 
@@ -146,49 +146,66 @@ NextPlayerMove( int PosR, int PosC, int * over, int * next, int Board[][6], int 
     int d = ( (PosC-1) / 3) + 1;
 
 
-    if (!*over && *next && Board[PosR-1][PosC-1] == 0 )
+    if (!*over && !*next && Board[PosR-1][PosC-1] == 0 )
     {
         good = !good;
         Board[PosR - 1][PosC - 1] = 1;
     }
 
-    OverCheck( *over, Areas, Board);
+    OverCheck(over, Areas, Board);
     
-    if (!*over && !*next && Board[PosR-1][PosC-1] == 0 )
+    if (!*over && *next && Board[PosR-1][PosC-1] == 0 )
     {
         good = !good;
         Board[PosR - 1][PosC - 1] = 2;
     }
 
-    OverCheck( *over, Areas, Board);
+    OverCheck(over, Areas, Board);
 
-    if (!*over && !good && *next && (Cardinality(Board, *next) > CardinalityC(Areas, *next))){
+    if (!*over && !good && !*next && (Cardinality(Board, next) > CardinalityC(Areas, next))){
         Areas[c - 1][d - 1] = 1;
     }
 
-    OverCheck( *over, Areas, Board);
+    OverCheck(over, Areas, Board);
     
-    if (!*over && !good && !*next && (Cardinality(Board, *next) > CardinalityC(Areas, *next))){
+    if (!*over && !good && *next && (Cardinality(Board, next) > CardinalityC(Areas, next))){
         Areas[c - 1][d - 1] = 2;
     }
 
-    OverCheck( *over, Areas, Board);
+    OverCheck(over, Areas, Board);
     
-    if (!*over && !good) 
+    if (!over && !good) 
     {
         good = !good; 
     }
 }
 
+int
+checkF3(int Board[][6])
+{
+	int i, j, ctr = 0;
+
+    for(i = 0; i < 6; i++){
+        for(j = 0; j < 6; j++){
+            if(Board[i][j] == 0)
+                ctr++;
+        }
+    }
+    
+    return ctr;
+}
+
 void
-GameOver( int * over, int * next, Areas[][2])
+GameOver(int * over, int * next, int Board[][6], int Areas[][2])
 {
     String result[2] = {"B wins", "A wins"};
 
-    if(*over && *next && (Areas[0][0] == Areas[1][1] && Areas[1][1] == 1) || (Areas[0][1] == Areas[1][0] && Areas[1][0] == 1))
-        printf("%s\n", result[0]);
-    else if(*over && *next && (Areas[0][0] == Areas[1][1] && Areas[1][1] == 2) || (Areas[0][1] == Areas[1][0] && Areas[1][0] == 2))
+    if(*over && !*next && ((Areas[0][0] == Areas[1][1] && Areas[1][1] == 1) || (Areas[0][1] == Areas[1][0] && Areas[1][0] == 1)))
         printf("%s\n", result[1]);
+    else if(*over && *next && ((Areas[0][0] == Areas[1][1] && Areas[1][1] == 2) || (Areas[0][1] == Areas[1][0] && Areas[1][0] == 2)))
+        printf("%s\n", result[0]);
+    else if (checkF3(Board) == 0) 
+    	printf("No one wins. It's a draw.");
     else
         *next = !*next;
 }
