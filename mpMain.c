@@ -12,6 +12,7 @@
 
 	while (!over) {
 		printBoard(Board, Areas);
+		inputPos(&PosR, &PosC);
 		NextPlayerMove(PosR, PosC, &over, &next, Board, Areas);
 		GameOver(&over, &next, Areas);
 	}		
