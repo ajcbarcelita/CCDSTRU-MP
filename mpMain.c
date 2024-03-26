@@ -11,6 +11,6 @@
 	int Areas[2][2] = {0}; // areas is c 2x2 board -- win con
 
 
- 	NextPlayerMove(PosR, PosC, &over, &next, Board);
+ 	NextPlayerMove(PosR, PosC, &over, &next, Board, Areas);
  	return 0;
  }
