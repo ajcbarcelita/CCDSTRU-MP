@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+typedef char String[7];
+
 int
 Cardinality(int Board[][6], int * next) //count the cardinality of the power set of F1 or F2 intersected with set S
 {
@@ -86,7 +88,7 @@ OverCheck( int * over, int Areas[][2], int Board[][6]) //checks if the game is o
     if(Areas[0][0] == Areas[1][1] && Areas[1][1] == 1)
         *over = 1;
     if(Areas[0][0] == Areas[1][1] && Areas[1][1] == 2)
-        *over = 2;
+        *over = 1;
     if(Areas[0][1] == Areas[1][0] && Areas[1][0] == 1)
         *over = 1;
     if(Areas[0][1] == Areas[1][0] && Areas[1][0] == 2)
@@ -134,4 +136,17 @@ NextPlayerMove( int PosR, int PosC, int * over, int * next, int Board[][6], int 
     {
         good = !good; 
     }
+}
+
+void
+GameOver( int * over, int * next, Areas[][2])
+{
+    String result[2] = {"B wins", "A wins"};
+
+    if(*over && *next && (Areas[0][0] == Areas[1][1] && Areas[1][1] == 1) || (Areas[0][1] == Areas[1][0] && Areas[1][0] == 1))
+        printf("%s\n", result[0]);
+    else if(*over && *next && (Areas[0][0] == Areas[1][1] && Areas[1][1] == 2) || (Areas[0][1] == Areas[1][0] && Areas[1][0] == 2))
+        printf("%s\n", result[1]);
+    else
+        *next = !*next;
 }
