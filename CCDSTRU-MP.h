@@ -2,27 +2,44 @@
 
 typedef char String[7];
 
+//input function for the game
+void inputPos(int *PosR, int *PosC)
+{
+    do
+    {
+        printf("Enter a number for row [1 - 6]: ");
+        scanf("%d", PosR);
+        printf("Enter a number for col [1 - 6]: ");
+        scanf("%d", PosC);
+
+        if ( (*PosR < 1 || *PosR > 6) || (*PosC < 1 || *PosC > 6) ) {
+            printf("INVALID INPUT! Please only enter a number from 1 to 6.\n\n");
+        }
+        
+    } while ( (*PosR < 1 || *PosR > 6) || (*PosC < 1 || *PosC > 6) );  
+}
+
 void printBoard(int Board[][6], int Areas[][2])
 {
     int i, j;
 
     for (i = 0; i < 6; i++) {
-        printf("==============================\n");
+        printf("=========================\n");
         for (j = 0; j < 6; j++) {
             printf("| %d ", Board[i][j]);
         }
         printf("|\n");
     }
-    printf("==============================\n\n");
+    printf("=========================\n\n");
     
     for (i = 0; i < 2; i++) {
-        printf("==============\n");
+        printf("=========\n");
         for (j = 0; j < 2; j++) {
             printf("| %d ", Areas[i][j]);
         }
         printf("|\n");
     }
-    printf("==============\n");
+    printf("=========\n");
     
 }
 
@@ -103,7 +120,7 @@ OverCheck( int * over, int Areas[][2], int Board[][6]) //checks if the game is o
     for(i = 0; i < 6; i++){
         for(j = 0; j < 6; j++){
             if(Board[i][j] == 0)
-                ctr++
+                ctr++;
         }
     }
 
