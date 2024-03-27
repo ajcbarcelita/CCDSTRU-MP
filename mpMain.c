@@ -27,7 +27,8 @@
 	 
 	int Board[6][6] = {0}; // board is F, 6x6 board
 	int Areas[2][2] = {0}; // areas is C, 2x2 board -- win con
-
+	
+	//while loop continues as long as the game is not over
 	while (!over) {
 		system("cls");
 		printf("=== MODIFIED TIC-TAC-TOE ===\n\n");
@@ -42,7 +43,8 @@
 		NextPlayerMove(PosR, PosC, &over, &next, &good, Board, Areas);
 		GameOver(&over, &next, Board, Areas);
 		turn++;
-	}		
+	}
+			
  	return 0;
  }
  
