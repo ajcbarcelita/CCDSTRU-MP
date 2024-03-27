@@ -6,6 +6,7 @@
  {
 	int over = 0;
 	int next = 0;
+	int good = 0;
 	int PosR, PosC;
 	int turn = 0;
 	 
@@ -17,7 +18,7 @@
 		printBoard(Board, Areas);
 		printf("It is currently Player %d's turn.\n\n", turn % 2 + 1);
 		inputPos(&PosR, &PosC);
-		NextPlayerMove(PosR, PosC, &over, &next, Board, Areas);
+		NextPlayerMove(PosR, PosC, &over, &next, &good, Board, Areas);
 		GameOver(&over, &next, Board, Areas);
 		turn++;
 	}		
