@@ -138,17 +138,15 @@ OverCheck(int * over, int Areas[][2], int Board[][6]) //checks if the game is ov
 }
 
 void
-NextPlayerMove( int PosR, int PosC, int * over, int * next, int Board[][6], int Areas[][2])
+NextPlayerMove( int PosR, int PosC, int * over, int * next, int * good, int Board[][6], int Areas[][2])
 {
-    int good = 0;
-
     int c = ( (PosR-1) / 3) + 1;
     int d = ( (PosC-1) / 3) + 1;
 
 
     if (!*over && !*next && Board[PosR-1][PosC-1] == 0 )
     {
-        good = !good;
+        *good = !*good;
         Board[PosR - 1][PosC - 1] = 1;
     }
 
@@ -156,27 +154,27 @@ NextPlayerMove( int PosR, int PosC, int * over, int * next, int Board[][6], int 
     
     if (!*over && *next && Board[PosR-1][PosC-1] == 0 )
     {
-        good = !good;
+        *good = !*good;
         Board[PosR - 1][PosC - 1] = 2;
     }
 
     OverCheck(over, Areas, Board);
 
-    if (!*over && !good && !*next && (Cardinality(Board, next) > CardinalityC(Areas, next))){
+    if (!*over && *good && !*next && (Cardinality(Board, next) > CardinalityC(Areas, next))){
         Areas[c - 1][d - 1] = 1;
     }
 
     OverCheck(over, Areas, Board);
     
-    if (!*over && !good && *next && (Cardinality(Board, next) > CardinalityC(Areas, next))){
+    if (!*over && *good && *next && (Cardinality(Board, next) > CardinalityC(Areas, next))){
         Areas[c - 1][d - 1] = 2;
     }
 
     OverCheck(over, Areas, Board);
     
-    if (!over && !good) 
+    if (!over && *good) 
     {
-        good = !good; 
+        *good = !*good; 
     }
 }
 
