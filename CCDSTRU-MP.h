@@ -2,7 +2,7 @@
 
 typedef char String[7];
 
-//input function for the game
+//input function for the game, takes in a value between 1 to 6 for PosR and PosC
 void inputPos(int *PosR, int *PosC)
 {
     do
@@ -19,7 +19,7 @@ void inputPos(int *PosR, int *PosC)
     } while ( (*PosR < 1 || *PosR > 6) || (*PosC < 1 || *PosC > 6) );  
 }
 
-void printBoard(int Board[][6], int Areas[][2])
+void printBoard(int Board[][6])
 {
     int i, j;
 
@@ -31,16 +31,6 @@ void printBoard(int Board[][6], int Areas[][2])
         printf("|\n");
     }
     printf("=========================\n\n");
-    
-    for (i = 0; i < 2; i++) {
-        printf("=========\n");
-        for (j = 0; j < 2; j++) {
-            printf("| %d ", Areas[i][j]);
-        }
-        printf("|\n");
-    }
-    printf("=========\n");
-    
 }
 
 
@@ -106,7 +96,7 @@ CardinalityC(int Areas[][2], int * next)
         }
     }
 
-    if(*next)
+    if(!*next)
         return cardinality1;
     else
         return cardinality2;
@@ -172,7 +162,7 @@ NextPlayerMove( int PosR, int PosC, int * over, int * next, int * good, int Boar
 
     OverCheck(over, Areas, Board);
     
-    if (!over && *good) 
+    if (!*over && *good) 
     {
         *good = !*good; 
     }
@@ -198,12 +188,24 @@ GameOver(int * over, int * next, int Board[][6], int Areas[][2])
 {
     String result[2] = {"B wins", "A wins"};
 
-    if(*over && !*next && ((Areas[0][0] == Areas[1][1] && Areas[1][1] == 1) || (Areas[0][1] == Areas[1][0] && Areas[1][0] == 1)))
-        printf("%s\n", result[1]);
-    else if(*over && *next && ((Areas[0][0] == Areas[1][1] && Areas[1][1] == 2) || (Areas[0][1] == Areas[1][0] && Areas[1][0] == 2)))
-        printf("%s\n", result[0]);
-    else if (checkF3(Board) == 0) 
+    if(*over && !*next && ((Areas[0][0] == Areas[1][1] && Areas[1][1] == 1) || (Areas[0][1] == Areas[1][0] && Areas[1][0] == 1))) {
+    	system("cls");
+    	printBoard(Board);
+    	printf("%s\n", result[1]);
+	} 
+	
+	else if(*over && *next && ((Areas[0][0] == Areas[1][1] && Areas[1][1] == 2) || (Areas[0][1] == Areas[1][0] && Areas[1][0] == 2))) {
+		system("cls");
+    	printBoard(Board);
+    	printf("%s\n", result[0]);
+	}
+
+    else if (checkF3(Board) == 0) {
+    	system("cls");
+    	printBoard(Board);
     	printf("No one wins. It's a draw.");
+	}
+    
     else
         *next = !*next;
 }
